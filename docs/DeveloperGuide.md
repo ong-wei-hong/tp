@@ -752,50 +752,104 @@ testers are expected to do more exploratory testing.</box>
    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### Deleting a person
+### Adding an employee
+1. Adding an employee while all employees are being shown
+
+    1. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/John Street, block 123 #01-01`<br>
+       Expected: The employee is added to the list. Details of the added leave shown in the status message.
+
+    2. Test case: `add n/John Two p/98765431 e/johnt@example.com a/John Street, block 122 #01-01 t/remote`<br>
+       Expected: The employee is added to the list. Error details shown in the status message. Status bar becomes red.
+
+    3. Test case: `add n/John Two p/98765431 e/johnt@example.com`<br>
+       Expected: The employee is not added to the list. Details of the added leave shown in the status message.
+   4. Other incorrect add commands to try: `add`, `add` with missing compulsory fields, `add` with illegal arguments in fields<br>
+       Expected: Similar to previous.
+   
+### Deleting an employee
+
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   2. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    2. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   3. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    3. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar becomes red.
 
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 2. Deleting a person after applying a filter
 
     1. Prerequisites: Filter to the second person using `find PERSON_NAME` where `PERSON_NAME` is the name of the second person.
 
     2. Test case: `delete 1`<br>
-        Expected: First visible contact is delete from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+       Expected: First visible contact is delete from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
     3. Test case: `delete 2`<br>
-       Expected: No person is delete. Error details shown in the status message. Status bar remains the same.
+       Expected: No person is delete. Error details shown in the status message. Status bar becomes red.
 
     4. Follow up actions: `list`<br>
        Expected: Only the previously deleted person is deleted.
-       
+
+### Adding a tag
+1. Adding a tag to an employee while all employee are being shown
+
+    1. Prerequisites: List all employee using the list command. Multiple employees in the list.
+
+    2. Test case: `add-tag 1 t/full time`<br>
+       Expected: The tag `full time` is added to employee indexed 1 shown in the employee list. Details of the edited employee shown in the status message.
+
+    3. Test case: `add-tag 1`<br>
+       Expected: No tag is added. Error details shown in the status message. Status bar becomes red.
+
+    4. Other incorrect add-tag commands to try: `add-tag`, `add-tag`with illegal arguments in fields, `add-tag x` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Editing an employee
+1. Editing an employee while all employee are being shown
+
+    1. Prerequisites: List all employee using the list command. Multiple employees in the list.
+
+    2. Test case: `edit 2 p/98765432 e/johndoe@example.com t/full-time t/remote`<br>
+       Expected: Thephone number, email address and tags of the employee indexed 2 are changed to 98765432, johndoe@example.com and full-time and remote. Details of the edited employee shown in the status message.
+
+    3. Test case: `edit 1 a/John street, block 123 #01-01 t/`<br>
+       Expected: The home address of the employee indexed 1 is changed to John street, block 123 #01-01 and all tags removed from the employee shown in the employee list. Details of the edited employee shown in the status message.
+
+    4. Test case: `edit 1 a/ t/`<br>
+       Expected: No tag is added. Error details shown in the status message. Status bar becomes red.
+
+    5. Other incorrect edit commands to try: `edit`, `edit` with illegal arguments in fields, `edit x` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Viewing all tags existing
+1. Viewing all tags while there are exsiting tags
+   1. Prerequisites: There are tags attached to the employees.
+
+   2. Test case: `view-tag`<br>
+      Expected: Tags shown in the status message.
+
+
 ### Finding all tags matched
 1. Finding Employees with All Tags in a Valid Scenario
    1. Prerequisites:
       1. Have a dataset with employees having different tags, specifically `remote`, `full time`, `part time` and `on-site`. 
       2. List all employees using the list command to identify available tags. 
-   2. Test Case: find-all-tag t/remote t/full time 
+   2. Test Case: `find-all-tag t/remote t/full time` 
       Expected: GUI Changes: A dedicated interface section displays a list of employees with both tags `remote` and `full time`. Status message indicates the number of matched employees. Verify that employees with additional tags are also displayed.
-   3. Test Case: find-all-tag
-      Expected: Error message indicates an invalid command format.Status bar remains the same.
-   4. Test Case: find-all-tag t/Nonexistent tag
+   3. Test Case: `find-all-tag`
+      Expected: Error message indicates an invalid command format.Status bar becomes red.
+   4. Test Case: `find-all-tag t/Nonexistent tag`
       Expected: GUI Changes: A dedicated interface section displays no employee. Status message indicates 0 matched employee.
-   5. Test Case: find-all-tag t/REMOTE
+   5. Test Case: `find-all-tag t/REMOTE`
       Expected: GUI Changes: A dedicated interface section displays no employee. Status message indicates 0 matched employee.
-   6. Test Case: find-all-tag t/123!
-      Expected: Error message indicates illegal tag names. Status bar remains the same.
-   7. Test Case: find-all-tag t/re
+   6. Test Case: `find-all-tag t/123!`
+      Expected: Error message indicates illegal tag names. Status bar becomes red.
+   7. Test Case: `find-all-tag t/re`
       Expected:Employees with tag named `re` are displayed. Verify that employees with additional tags are also displayed.
 
 ### Finding some tags matched
@@ -803,17 +857,17 @@ testers are expected to do more exploratory testing.</box>
     1. Prerequisites:
         1. Have a dataset with employees having different tags, specifically `remote`, `full time`, `part time` and `on-site`.
         2. List all employees using the list command to identify available tags.
-    2. Test Case: find-some-tag t/remote t/full time
+    2. Test Case: `find-some-tag t/remote t/full time`
        Expected: GUI Changes: A dedicated interface section displays a list of employees with either tags `remote` and `full time`. Status message indicates the number of matched employees. Verify that employees with additional tags are also displayed.
-    3. Test Case: find-some-tag
-       Expected: Error message indicates an invalid command format.Status bar remains the same.
-    4. Test Case: find-some-tag t/Nonexistent tag
+    3. Test Case: `find-some-tag`
+       Expected: Error message indicates an invalid command format.Status bar becomes red.
+    4. Test Case: `find-some-tag t/Nonexistent tag`
        Expected: GUI Changes: A dedicated interface section displays no employee. Status message indicates 0 matched employee.
-    5. Test Case: find-some-tag t/REMOTE
+    5. Test Case: `find-some-tag t/REMOTE`
        Expected: GUI Changes: A dedicated interface section displays no employee. Status message indicates 0 matched employee.
-    6. Test Case: find-some-tag t/123!
-       Expected: Error message indicates illegal tag names. Status bar remains the same.
-    7. Test Case: find-some-tag t/re
+    6. Test Case: `find-some-tag t/123!`
+       Expected: Error message indicates illegal tag names. Status bar becomes red.
+    7. Test Case: `find-some-tag t/re`
        Expected:Employees with tag named `re` are displayed. Verify that employees with additional tags are also displayed.
 
 ### Adding a leave
@@ -821,13 +875,13 @@ testers are expected to do more exploratory testing.</box>
 
    1. Prerequisites: List all leaves using the list-leaves command. Multiple leaves in the list.
 
-   2. Test case: add-leave 1 title/Vacation start/2023-11-15 end/2023-11-20<br>
+   2. Test case: `add-leave 1 title/Vacation start/2023-11-15 end/2023-11-20`<br>
    Expected: The leave is added to the list. Details of the added leave shown in the status message. Timestamp in the status bar is updated.
 
-   3. Test case: add-leave 0 title/Conference start/2023-12-01 end/2023-12-03 d/Attending conference<br>
-   Expected: No leave is added. Error details shown in the status message. Status bar remains the same.
+   3. Test case: `add-leave 0 title/Conference start/2023-12-01 end/2023-12-03 d/Attending conference`<br>
+   Expected: No leave is added. Error details shown in the status message. Status bar becomes red.
 
-   4. Other incorrect add-leave commands to try: add-leave, add-leave x, ... (where x is larger than the list size)<br>
+   4. Other incorrect add-leave commands to try: `add-leave`, `add-leave x`, `...` (where x is larger than the list size)<br>
    Expected: Similar to previous.
 
 ### Saving data
