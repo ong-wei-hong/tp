@@ -31,11 +31,12 @@ Given below are my contributions to the project.
     * The `find-all-tag` command now outputs the correct results as described in the user guide. [#170](https://github.com/AY2324S1-CS2103T-W11-1/tp/pull/170)
 
 * **Community**
-  * Reviewed 16 PRs: [Reviewed PRs](https://github.com/AY2324S1-CS2103T-W11-1/tp/pulls?q=is%3Apr+reviewed-by%3Ainfibeyond)
+  * Reviewed PRs: [Reviewed PRs](https://github.com/AY2324S1-CS2103T-W11-1/tp/pulls?q=is%3Apr+reviewed-by%3Ainfibeyond)
   * Raised 14 bugs during Practical Exam Dry Run.
 
 * **Project Management**
   * Update and document non-feature-specific sections in the user guide. (Introduction, Quick Start, Important things to note, etc.)
   * Create the application icon. (used in CS2101)
+  * Helped summarise and assess bug reports to determine further actions for milestone v1.4.
 
 * **Code contributions:** [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=infibeyond&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22)
