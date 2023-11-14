@@ -773,7 +773,7 @@ testers are expected to do more exploratory testing.</box>
        Expected: Only the previously deleted person is deleted.
 
 ### Adding a tag
-1. Adding a leave while all leaves are being shown
+1. Adding a tag to an employee while all employee are being shown
 
     1. Prerequisites: List all employee using the list command. Multiple employees in the list.
 
@@ -787,7 +787,7 @@ testers are expected to do more exploratory testing.</box>
        Expected: Similar to previous.
 
 ### Editing an employee
-1. Adding a leave while all leaves are being shown
+1. Editing an employee while all employee are being shown
 
     1. Prerequisites: List all employee using the list command. Multiple employees in the list.
 
